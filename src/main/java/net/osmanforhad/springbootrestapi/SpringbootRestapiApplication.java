@@ -22,15 +22,6 @@ public class SpringbootRestapiApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		
-		//create Model Entity object
-//		Employee employee = new Employee();
-		//set data to save as dummy data
-//		employee.setFirstName("Mr");
-//		employee.setLastName("osman");
-//		employee.setEmailId("osman@gmail.com");
-		
-		//save dummy data into DB through the Repository Interface
-//		employeeRepository.save(employee);
 		
 	}
 
