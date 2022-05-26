@@ -3,8 +3,10 @@ package net.osmanforhad.springbootrestapi.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -53,16 +55,27 @@ public class EmployeeController {
 		// fetch and match the employee data with DB
 		Employee employee = employeeRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("employe not exists with id : " + id));
-		
-		//set employee info to update into DB
+
+		// set employee info to update into DB
 		employee.setFirstName(updateEmpinfo.getFirstName());
 		employee.setLastName(updateEmpinfo.getLastName());
 		employee.setEmailId(updateEmpinfo.getEmailId());
-		
-		//update the employee info
+
+		// update the employee info
 		Employee updatedEmployee = employeeRepository.save(employee);
-		
+
 		return ResponseEntity.ok(updatedEmployee);
+	}
+
+	// delete employee
+	@DeleteMapping("/employee/{id}")
+	public ResponseEntity<HttpStatus> deleteEmployee(@PathVariable Long id) {
+		// check the given employee id is exists or not
+		Employee employee = employeeRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("employee not exists with id : " + id));
+		employeeRepository.delete(employee);
+		
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
 }
